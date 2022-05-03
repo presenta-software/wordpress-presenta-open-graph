@@ -52,33 +52,31 @@ function presenta_head_meta_data() {
     $post_image = "https://source.unsplash.com/random/800x600/?sky";
   }
 
-  $url = $PRESENTA_SERVICE_URL . $pTemplateID;
+  $url = $PRESENTA_SERVICE_URL . esc_attr($pTemplateID);
   $url .= "?title=" . $post_title;
   $url .= "&subtitle=" . $post_date;
   $url .= "&image=" . $post_image;
 
-  $output = '<!-- PRESENTA OG start -->
-  ';
+  $output =  "\n" . '<!-- PRESENTA OG start -->' . "\n";
 
   if($hasYoast != '1'){
-    $output .= '<meta property="og:type" content="website">';
-    $output .= '<meta property="og:title" content="'.$post_title.'">';
-    $output .= '<meta property="og:site_name" content="'.$site_name.'">';
-    $output .= '<meta property="og:description" content="'.$post_excerpt.'">';
-    $output .= '<meta property="og:url" content="'.$post_url.'">';
+    $output .= '<meta property="og:type" content="website">' . "\n";
+    $output .= '<meta property="og:title" content="' . esc_attr($post_title) . '">' . "\n";
+    $output .= '<meta property="og:site_name" content="' . esc_attr($site_name) . '">' . "\n";
+    $output .= '<meta property="og:description" content="' . esc_attr($post_excerpt) . '">' . "\n";
+    $output .= '<meta property="og:url" content="' . esc_url($post_url) . '">' . "\n";
 
-    $output .= '<meta name="twitter:card" content="summary_large_image"  />';
-    $output .= '<meta name="twitter:title" content="'.$post_title.'"  />';
-    $output .= '<meta name="twitter:site" content="'.$site_name.'"  />';
-    $output .= '<meta name="twitter:description" content="'.$post_excerpt.'"  />';
-    $output .= '<meta name="twitter:url" content="'.$post_url.'"  />';
+    $output .= '<meta name="twitter:card" content="summary_large_image"  />' . "\n";
+    $output .= '<meta name="twitter:title" content="' . esc_attr($post_title) . '"  />' . "\n";
+    $output .= '<meta name="twitter:site" content="' . esc_attr($site_name) . '"  />' . "\n";
+    $output .= '<meta name="twitter:description" content="' . esc_attr($post_excerpt) . '"  />' . "\n";
+    $output .= '<meta name="twitter:url" content="' . esc_url($post_url) . '"  />' . "\n";
   }
 
-  $output .= '<meta name="twitter:image" content="'.$url.'"  />';
-  $output .= '<meta property="og:image" content="'.$url.'"  />
-  ';
+  $output .= '<meta name="twitter:image" content="' . $url . '"  />' . "\n";
+  $output .= '<meta property="og:image" content="' . $url . '"  />' . "\n";
 
-  $output .= '<!-- PRESENTA OG end -->';
+  $output .= '<!-- PRESENTA OG end -->' . "\n\n";
 
   echo $output;
   
@@ -184,11 +182,11 @@ function presenta_render_plugin_setting_panel(){
 
 
         <?php $templateID = get_option('presenta_plugin_template_id'); ?>
-        const actual = "<?php echo $templateID; ?>"
+        const actual = "<?php echo esc_attr($templateID); ?>"
     
         <?php $yoastFix = get_option('presenta_plugin_template_yoast'); ?>
         const checkYoast = document.querySelector('#presenta_yoast_fix')
-        const hasYoast = "<?php echo $yoastFix; ?>"
+        const hasYoast = "<?php echo esc_attr($yoastFix); ?>"
         if(hasYoast == '1') checkYoast.checked = true
         checkYoast.addEventListener('change', e => {
           const v = e.target.checked
@@ -196,7 +194,7 @@ function presenta_render_plugin_setting_panel(){
           field.value = v ? 1 : 0
         })
 
-        const base = '<?php echo $PRESENTA_SERVICE_URL; ?>'
+        const base = '<?php echo esc_url($PRESENTA_SERVICE_URL); ?>'
 
         const wrapper = document.querySelector('#presenta_gallery_container')
 
