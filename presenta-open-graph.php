@@ -52,34 +52,26 @@ function presenta_head_meta_data() {
     $post_image = "https://source.unsplash.com/random/800x600/?sky";
   }
 
-  $url = $PRESENTA_SERVICE_URL . esc_attr($pTemplateID);
-  $url .= "?title=" . $post_title;
-  $url .= "&subtitle=" . $post_date;
-  $url .= "&image=" . $post_image;
-
-  $output =  "\n" . '<!-- PRESENTA OG start -->' . "\n";
+  echo "\n" . '<!-- PRESENTA OG start -->' . "\n";
 
   if($hasYoast != '1'){
-    $output .= '<meta property="og:type" content="website">' . "\n";
-    $output .= '<meta property="og:title" content="' . esc_attr($post_title) . '">' . "\n";
-    $output .= '<meta property="og:site_name" content="' . esc_attr($site_name) . '">' . "\n";
-    $output .= '<meta property="og:description" content="' . esc_attr($post_excerpt) . '">' . "\n";
-    $output .= '<meta property="og:url" content="' . esc_url($post_url) . '">' . "\n";
+   echo '<meta property="og:type" content="website">' . "\n";
+   echo '<meta property="og:title" content="' . esc_attr($post_title) . '">' . "\n";
+   echo '<meta property="og:site_name" content="' . esc_attr($site_name) . '">' . "\n";
+   echo '<meta property="og:description" content="' . esc_attr($post_excerpt) . '">' . "\n";
+   echo '<meta property="og:url" content="' . esc_url($post_url) . '">' . "\n";
 
-    $output .= '<meta name="twitter:card" content="summary_large_image"  />' . "\n";
-    $output .= '<meta name="twitter:title" content="' . esc_attr($post_title) . '"  />' . "\n";
-    $output .= '<meta name="twitter:site" content="' . esc_attr($site_name) . '"  />' . "\n";
-    $output .= '<meta name="twitter:description" content="' . esc_attr($post_excerpt) . '"  />' . "\n";
-    $output .= '<meta name="twitter:url" content="' . esc_url($post_url) . '"  />' . "\n";
+   echo '<meta name="twitter:card" content="summary_large_image"  />' . "\n";
+   echo '<meta name="twitter:title" content="' . esc_attr($post_title) . '"  />' . "\n";
+   echo '<meta name="twitter:site" content="' . esc_attr($site_name) . '"  />' . "\n";
+   echo '<meta name="twitter:description" content="' . esc_attr($post_excerpt) . '"  />' . "\n";
+   echo '<meta name="twitter:url" content="' . esc_url($post_url) . '"  />' . "\n";
   }
 
-  $output .= '<meta name="twitter:image" content="' . $url . '"  />' . "\n";
-  $output .= '<meta property="og:image" content="' . $url . '"  />' . "\n";
+  echo '<meta name="twitter:image" content="' . esc_url($PRESENTA_SERVICE_URL) . esc_attr($pTemplateID) . "?title=" . esc_attr($post_title) . "&subtitle=" . esc_attr($post_date) . "&image=" . urlencode_deep($post_image) . '"  />' . "\n";
+  echo '<meta property="og:image"  content="' . esc_url($PRESENTA_SERVICE_URL) . esc_attr($pTemplateID) . "?title=" . esc_attr($post_title) . "&subtitle=" . esc_attr($post_date) . "&image=" . urlencode_deep($post_image) . '"  />' . "\n";
 
-  $output .= '<!-- PRESENTA OG end -->' . "\n\n";
-
-  echo $output;
-  
+  echo '<!-- PRESENTA OG end -->' . "\n\n";  
 }
 add_action('wp_head', 'presenta_head_meta_data', 1);
 
